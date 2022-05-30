@@ -1,19 +1,20 @@
 
+// variables
 const wordlist = ["hello", "alone", "album", "world", "crane", "crate", "point"];
-let atempts = 6;
-let atempt = 0;
-
+let attepts = [null,null,null,null,null,null];
+let atempt;
 let answer;
-let array = [null,null,null,null,null,null];
 
+// resets/initalizes variables
 function reset(){
     answer = wordlist[Math.floor(Math.random()*wordlist.length)];
     atempt = 0;
-    for(x = 0; x < atempts; x++){
-        array[x] = null;
+    for(x=0; x<6; x++){
+        attepts[x] = null;
     };
 };
 
+// prosseses guess and returns placement
 function guess(word){
     let inWordlist = false;
     for(x in wordlist){
@@ -25,10 +26,23 @@ function guess(word){
         if(word === answer){
             console.log("correct");
         } else {
-            console.log("incorrect");
+            let placement = ["not","not","not","not","not"];
+            for(x=0; x<5; x++){
+                for(y=0; y<5; y++){
+                    if(word[x] === answer[y]){
+                        placement[x] = "move";
+                    };
+                };
+
+                if(word[x] === answer[x]){
+                    console.log(undefined)
+                    placement[x] = "yes";
+                };
+            };
+            console.log(placement);
         };
     } else {
-        console.log("not in wordlist")
+        console.log("not in wordlist");
     };
 }
 
