@@ -1,0 +1,12 @@
+*{
+    text-align: center;
+}
+
+#canvas{
+    margin: 10px;
+    border: 1px solid black;
+    height: 190px;
+    width: 390px;
+    padding: 5px;
+    background-color: lightgray;
+}
