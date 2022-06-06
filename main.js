@@ -1,7 +1,7 @@
 
 // variables
 var ctx = document.getElementById("canvas").getContext("2d");
-const wordlist = ["hello", "alone", "album", "world", "crane", "crate", "point"];
+const wordlist = advanced;
 let attepts = [null,null,null,null,null,null];
 let atempt;
 let answer;
@@ -18,18 +18,19 @@ function reset(){
 };
 
 // prosseses guess and returns placement
-function guess(word = document.getElementById("input").value){
+function guess(word = document.getElementById("input").value.toUpperCase()){
     document.getElementById("input").value = "";
     console.log(word)
+    console.log(answer)
     let inWordlist = false;
     for(x in wordlist){
-        if(word === wordlist[x]){
+        if(word == wordlist[x]){
             inWordlist = true;
         };
     };
     if(inWordlist){
         atempt += 1;
-        if(word === answer){
+        if(word == answer){
 
             ctx.fillStyle = "green";
             ctx.fillRect(0, atempt*24-24, 150,24);
