@@ -91,10 +91,8 @@ function checkPossibleAnswers(letterHighlights,guessedWord){
             if(possibleAnswerList[z] != null){
             let tempName = ["lightgray","lightgray","lightgray","lightgray","lightgray"];
             for(x=0; x<5; x++){
-                for(y=0; y<5; y++){
-                    if(guessedWord[x] === possibleAnswerList[z][x]){
-                        tempName[x] = "yellow";
-                    };
+                if(possibleAnswerList[z].includes(guessedWord[x])){
+                    tempName[x] = "yellow";
                 };
 
                 if(guessedWord[x] === possibleAnswerList[z][x]){
