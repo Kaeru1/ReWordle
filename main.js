@@ -1,20 +1,21 @@
 
 // variables
 var ctx = document.getElementById("canvas").getContext("2d");
-const wordlist = advanced;
-const answerList = intermediate;
+const wordlist = fullList;
+const answerList = advanced;
 let possibleAnswerList = answerList;
 let attempts = [null,null,null,null,null,null];
 let failed = false;
 let attempt;
 let answer;
 
-// resets/initalizes variables
+// resets variables
 function reset(){
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, 150, 150);
     answer = answerList[Math.floor(Math.random()*answerList.length)];
-    possibleAnswerList = answerList;
+    console.log(answer)
+    possibleAnswerList = structuredClone(answerList);
     failed = false;
     attempt = 0;
     for(x=0; x<6; x++){
@@ -27,13 +28,14 @@ function guess(guessedWord = document.getElementById("input").value.toUpperCase(
     document.getElementById("input").value = "";
     document.getElementById("tempId").innerText = "";
     console.log(guessedWord);
-    console.log(answer);
+    //console.log(answer);
     let inWordlist = false;
     for(x in wordlist){
         if(guessedWord == wordlist[x]){
             inWordlist = true;
         };
     };
+
     // checks if guessedWord is in wordlist and if player has failed
     if(inWordlist && !failed){
         attempt += 1;
@@ -54,7 +56,7 @@ function guess(guessedWord = document.getElementById("input").value.toUpperCase(
             let letterHighlights = ["lightgray","lightgray","lightgray","lightgray","lightgray"];
             for(x=0; x<5; x++){
                 for(y=0; y<5; y++){
-                    if(guessedWord[x] === answer[y]){
+                    if(guessedWord[x] == answer[y]){
                         letterHighlights[x] = "yellow";
                     };
                 };
@@ -85,8 +87,9 @@ function guess(guessedWord = document.getElementById("input").value.toUpperCase(
     };
 };
 
+// 
 function checkPossibleAnswers(letterHighlights,guessedWord){
-    let possibleAnswers = 0;
+    let possibleAnswerAmount = 0;
     for(z in possibleAnswerList){
             if(possibleAnswerList[z] != null){
             let tempName = ["lightgray","lightgray","lightgray","lightgray","lightgray"];
@@ -99,6 +102,8 @@ function checkPossibleAnswers(letterHighlights,guessedWord){
                     tempName[x] = "green";
                 };
             };
+
+            // checks if letterHighlights == tempname with nested loop
             let keepAsPossibleAnswer = false;
             if(letterHighlights[0] == tempName[0]){
                 if(letterHighlights[1] == tempName[1]){
@@ -107,19 +112,21 @@ function checkPossibleAnswers(letterHighlights,guessedWord){
                             if(letterHighlights[4] == tempName[4]){
                                 console.log(possibleAnswerList[z]);
                                 keepAsPossibleAnswer = true;
-                                possibleAnswers += 1;
+                                possibleAnswerAmount += 1;
                             };
                         };
                     };
                 };
             };
+
+            // removes answers that are not possible from possibleAnswerList
             if(!keepAsPossibleAnswer){
-                possibleAnswerList[z] = null;   
+                possibleAnswerList[z] = null;
             };
         };
     };
-    console.log(`There are ${possibleAnswers} possible answers left`);
-    document.getElementById("possible answers").innerText = `There are ${possibleAnswers} possible answers left`;
+    console.log(`There are ${possibleAnswerAmount} possible answers left`);
+    document.getElementById("possible answers").innerText = `There are ${possibleAnswerAmount} possible answers left`;
 };
 
 reset();
